@@ -1,4 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Multi Tenant App in NextJS
+
+I am creating the baseline for the Multi Tenant App in NextJs with inspiration [platform starter kit](https://demo.vercel.pub/platforms-starter-kit) from vercel.
+
+You can also check the more details [here](https://vercel.com/templates/next.js/platforms-starter-kit).
+
+## The structure of the project
+
+In this project I wanted to have the following logic and structure:
+1. We will have a homepage for the app. More like a landing page
+2. On the main route `/` we will be able to add any other url route. For now we have `/other` as well
+3. The will be a `app.youpagename.com` route that will be only accessible if the user is logged in. If he is not logged in he will need to sign in our sign up to the application first and will be routed to the `login` page of the app
+4. Inside the the `auth` route the user will be landing in the dashboard. In this case I build different routes in the app, `listings` and `settings`.
+5. The user will need to create his profile in the `settings` page and would be able to add `listings` to his app. We should also be adding the `home-guides` for the user to start to share their guides with the world
+6. When creating a listing the user will need to the subdomain that he wants for it as well as the description so that it builds the `[domain]` page 
+
+```
+app
+ ┣ [domain]
+ ┃ ┣ home-guides
+ ┃ ┃ ┗ page.js
+ ┃ ┣ layout.js
+ ┃ ┗ page.js
+ ┣ app
+ ┃ ┣ (auth)
+ ┃ ┃ ┣ (dashboard)
+ ┃ ┃ ┃ ┣ listings
+ ┃ ┃ ┃ ┃ ┗ page.js
+ ┃ ┃ ┃ ┣ settings
+ ┃ ┃ ┃ ┃ ┗ page.js
+ ┃ ┃ ┃ ┗ page.js
+ ┃ ┃ ┗ login
+ ┃ ┃ ┃ ┗ page.js
+ ┃ ┗ layout.js
+ ┣ home
+ ┃ ┣ other
+ ┃ ┃ ┗ page.js
+ ┃ ┗ page.js
+ ┣ favicon.ico
+ ┣ globals.css
+ ┣ layout.js
+ ┗ not-found.js    
+```
+
+## Questions for the middleware 
+
+I am was not able to solve a couple of things in the way that I put together the middleware yet:
+
+- [ ] When I do not have the subdomain specified I shouldn't show the page to my user, I should route him to a 404. How should I do that? 
+- [ ] If the user tries to go the `home-guides` from the main page he shouldn't be able to. 
+
 
 ## Getting Started
 
@@ -16,21 +66,6 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
